@@ -1,0 +1,21 @@
+{
+  "name": "gym-website",
+  "version": "1.0.0",
+  "description": "A website for a gym that includes an About Us page, a Book a Coach page with a slideshow, and an Admissions Form page.",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build process not defined yet.'"
+  },
+  "keywords": [
+    "gym",
+    "website",
+    "coaches",
+    "admissions"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}

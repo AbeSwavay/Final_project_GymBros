@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Join The Bro Force - Gym Bros</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <div class="logo-container">
+      <img src="Gym_logo.png" alt="Gym Bros Logo" class="logo-img">
+      <span class="logo-text">Gym Bros</span>
+    </div>
+    <ul>
+      <li><a href="index.html">About Us</a></li>
+      <li><a href="Book_a_Coach.html">Book a Coach</a></li>
+      <li><a href="Admissions.html">Join Now</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1>Join The Bro Force!!! (Females are welcomed too)</h1>
+    <div id="subscription-section">
+      <h2>Choose Your Subscription</h2>
+      <button type="button" class="subscription-btn big-btn" data-plan="monthly">
+        <span class="plan-title">Monthly</span>
+        <span class="plan-price">$29.99/month</span>
+      </button>
+      <button type="button" class="subscription-btn big-btn" data-plan="annually">
+        <span class="plan-title">Annually</span>
+        <span class="plan-price">$299.99/year</span>
+      </button>
+    </div>
+    <form id="admission-form" class="admission-form hide-form">
+      <input type="hidden" name="subscription-plan" id="subscription-plan">
+      <div class="form-row">
+        <label>Name:
+          <input type="text" name="name" required placeholder="e.g. John Doe">
+        </label>
+        <label>Age:
+          <input type="number" name="age" id="age" required placeholder="e.g. 21" min="13">
+        </label>
+        <label>Phone Number:
+          <input type="tel" name="phone" required placeholder="e.g. (555) 123-4567" pattern="^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$">
+        </label>
+      </div>
+      <div class="form-row">
+        <label>Address:
+          <input type="text" name="address" required placeholder="e.g. 123 Fitness Ave">
+        </label>
+        <label>Email:
+          <input type="email" name="email" required placeholder="e.g. john@email.com">
+        </label>
+      </div>
+      <div class="form-row" id="parent-signature-row">
+        <label>Parent/Guardian Signature:
+          <input type="text" name="parent-signature" id="parent-signature" placeholder="Parent/Guardian Name">
+        </label>
+      </div>
+      <fieldset>
+        <legend>Billing Info</legend>
+        <div class="form-row">
+          <label>Credit num:
+            <input type="text" name="credit" required placeholder="e.g. 1234123412341234" maxlength="16" pattern="\d{16}">
+          </label>
+          <label>CSV:
+            <input type="text" name="csv" required placeholder="e.g. 123" maxlength="4" pattern="\d{3,4}">
+          </label>
+          <label>Billing Address:
+            <input type="text" name="billing-address" required placeholder="e.g. 123 Fitness Ave">
+          </label>
+        </div>
+      </fieldset>
+      <button type="submit" class="big-submit">Submit</button>
+    </form>
+  </main>
+  <footer>
+    Address: 123 Fitness Ave | Phone: (555) 123-4567
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const ageInput = document.getElementById('age');
+      const parentSignatureRow = document.getElementById('parent-signature-row');
+      const parentSignatureInput = document.getElementById('parent-signature');
+      const form = document.getElementById('admission-form');
+      const subscriptionBtns = document.querySelectorAll('.subscription-btn');
+      const subscriptionPlanInput = document.getElementById('subscription-plan');
+      const subscriptionSection = document.getElementById('subscription-section');
+
+      // Hide parent signature row by default
+      parentSignatureRow.style.display = 'none';
+
+      function checkAge() {
+        const age = parseInt(ageInput.value, 10);
+        if (age >= 13 && age < 18) {
+          parentSignatureRow.style.display = '';
+          parentSignatureInput.required = true;
+        } else {
+          parentSignatureRow.style.display = 'none';
+          parentSignatureInput.required = false;
+          parentSignatureInput.value = '';
+        }
+      }
+
+      if (ageInput) {
+        ageInput.addEventListener('input', checkAge);
+      }
+
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          const age = parseInt(ageInput.value, 10);
+          if (isNaN(age) || age < 13) {
+            alert('You must be at least 13 years old to sign up.');
+            e.preventDefault();
+            return;
+          }
+          if (age >= 13 && age < 18 && !parentSignatureInput.value.trim()) {
+            alert('Parent/Guardian signature is required for applicants under 18.');
+            e.preventDefault();
+            return;
+          }
+        });
+      }
+
+      // Subscription logic
+      subscriptionBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const plan = btn.getAttribute('data-plan');
+          subscriptionPlanInput.value = plan;
+          form.classList.remove('hide-form');
+          subscriptionSection.style.display = 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
